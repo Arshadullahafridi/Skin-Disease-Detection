@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skin Disease Detection</title>
+</head>
+<body>
+
+<h2>Skin Disease Detection</h2>
+
+<input type="file" id="fileInput">
+<button onclick="predict()">Predict</button>
+
+<h3 id="result">Prediction: </h3>
+
+<script>
+function predict() {
+    let fileInput = document.getElementById("fileInput");
+
+    if (fileInput.files.length === 0) {
+        alert("Select image first");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    fetch("/predict", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Server Response:", data);
+
+        if (data.error) {
+            document.getElementById("result").innerText =
+                "Error: " + data.error;
+        } else {
+            document.getElementById("result").innerText =
+                "Prediction: " + data.prediction +
+                " | Confidence: " + data.confidence.toFixed(2) + "%";
+        }
+    })
+    .catch(error => {
+        console.error("Fetch Error:", error);
+    });
+}
+</script>
+
+</body>
+</html>
