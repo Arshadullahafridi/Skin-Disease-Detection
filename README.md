@@ -1,3 +1,6 @@
+#  Dataset
+https://www.kaggle.com/datasets/vishwasmishra1234/skin-disease-dataset/data
+
 # 🩺 Skin Disease Detection System
 
 ## 📌 Project Overview
